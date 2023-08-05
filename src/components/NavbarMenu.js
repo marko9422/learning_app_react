@@ -1,5 +1,5 @@
+
 import React from 'react';
-import './App.css';
 
 import Home from './components/Home'
 import ShortTextForm from './components/ShortTextForm'
@@ -11,9 +11,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
 
-function App() {
+export default function navbarMenu() {
   return (
-
     <>
     <BrowserRouter>
     <Navbar bg="dark" data-bs-theme="dark">
@@ -32,11 +31,7 @@ function App() {
         <Route path='/LongTextForm' element={< LongTextForm/>} />
     </Routes>
     </BrowserRouter>
-  </>  
+  </>
   
-    )
+  )
 }
-
- 
-
-export default App;
