@@ -1,0 +1,14 @@
+.oneWord{
+    text-align: center;
+}
+.ListedShortWord{
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid green;
+    width: 200px;
+    padding: 30px;
+}
+.hiddenWord{
+    background-color: rgb(31, 88, 137);
+    text-indent: -9999px;
+}

@@ -19,7 +19,6 @@ export default function ShortTextForm() {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    
     axios.post("http://localhost/learning_app_react_php/", inputs).then(function(response){
         console.log(response.data)
     });
