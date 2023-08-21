@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import { convertToHTML } from 'draft-convert';
+import axios from 'axios';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './LongTextForm.css';
+
+// bootstrap import
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 function LongTextForm() {
   const [editorState, setEditorState] = useState(
@@ -19,6 +24,16 @@ function LongTextForm() {
 
   console.log(convertedContent);
 
+//   onClick, save data into database.
+    const save_long_text = (e) => {
+
+        e.preventDefault();
+        axios.post("http://localhost/learning_app_react_php/save_longText.php",{text_data: convertedContent}).then(function(response){
+            console.log(response)
+        });
+          
+    }
+
   return (
     <div className="App">
       <Editor
@@ -28,11 +43,9 @@ function LongTextForm() {
         editorClassName="editor-class"
         toolbarClassName="toolbar-class"
       />
+      <Button variant="primary" onClick={save_long_text}>Submit</Button>
     </div>
   )
 }
 
 export default LongTextForm
-
-
-// import './../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
