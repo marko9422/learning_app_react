@@ -28,7 +28,8 @@ function LongTextForm() {
 //   onClick, save data into database.
     const save_long_text = (e) => {
         e.preventDefault();
-        axios.post("http://localhost/learning_app_react_php/save_longText.php",{text_data: convertedContent}).then(function(response){
+        axios.post("http://localhost/learning_app_react_php/save_longText.php",
+        {text_data: convertedContent,question: question}).then(function(response){
             console.log(response)
         });  
     }
