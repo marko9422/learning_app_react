@@ -31,6 +31,7 @@ function LongTextForm() {
         axios.post("http://localhost/learning_app_react_php/save_longText.php",
         {text_data: convertedContent,question: question}).then(function(response){
             console.log(response)
+            setQuestion('')
         });  
     }
 //   Handle question const.
