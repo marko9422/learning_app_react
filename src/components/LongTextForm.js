@@ -16,26 +16,38 @@ function LongTextForm() {
     () => EditorState.createEmpty(),
   );
   const [convertedContent, setConvertedContent] = useState(null);
+  const [question, setQuestion] = useState('');
 
   useEffect(() => {
     let html = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(html);
   }, [editorState]);
 
-  console.log(convertedContent);
+  // console.log(convertedContent);
 
 //   onClick, save data into database.
     const save_long_text = (e) => {
-
         e.preventDefault();
         axios.post("http://localhost/learning_app_react_php/save_longText.php",{text_data: convertedContent}).then(function(response){
             console.log(response)
-        });
-          
+        });  
     }
+//   Handle question const.
+    const handleChangeQuestion = (e) => {
+      const value = e.target.value;
+      setQuestion(value);
+    };
 
   return (
     <div className="App">
+      <input
+        type="text"
+        value={question}
+        onChange={handleChangeQuestion}
+        placeholder="Question"
+        name="question"
+        autoComplete="off"
+      />
       <Editor
         editorState={editorState}
         onEditorStateChange={setEditorState}
