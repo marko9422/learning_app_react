@@ -1,7 +1,7 @@
 .oneWord{
     text-align: center;
 }
-.ListedShortWord{
+/* .ListedShortWord{
     display: inline-block;
     margin: 10px;
     border: 1px solid green;
@@ -11,4 +11,4 @@
 .hiddenWord{
     background-color: rgb(31, 88, 137);
     text-indent: -9999px;
-}
+} */
