@@ -23,7 +23,7 @@ function LongTextForm() {
     let html = document.querySelector('div[data-contents="true"]');
     const outerHTML = html.outerHTML;
     setStyle(outerHTML);
-    console.log(outerHTML)
+    // console.log(outerHTML)
   }, [editorState]);
 
 //   onClick, save data into database.
