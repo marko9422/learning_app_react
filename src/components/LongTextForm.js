@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
-import { convertToHTML } from 'draft-convert';
 import axios from 'axios';
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -15,21 +14,23 @@ function LongTextForm() {
   const [editorState, setEditorState] = useState(
     () => EditorState.createEmpty(),
   );
-  const [convertedContent, setConvertedContent] = useState(null);
   const [question, setQuestion] = useState('');
 
-  useEffect(() => {
-    let html = convertToHTML(editorState.getCurrentContent());
-    setConvertedContent(html);
-  }, [editorState]);
+  const [style, setStyle] = useState('');
 
-  // console.log(convertedContent);
+  useEffect(() => {
+    
+    let html = document.querySelector('div[data-contents="true"]');
+    const outerHTML = html.outerHTML;
+    setStyle(outerHTML);
+    console.log(outerHTML)
+  }, [editorState]);
 
 //   onClick, save data into database.
     const save_long_text = (e) => {
         e.preventDefault();
         axios.post("http://localhost/learning_app_react_php/save_longText.php",
-        {text_data: convertedContent,question: question}).then(function(response){
+        {text_data: style,question: question}).then(function(response){
             console.log(response)
             setQuestion('')
         });  
