@@ -2,6 +2,7 @@ import React from 'react';
 import {useState } from 'react';
 import './ListGrammar.css';
 import axios from 'axios';
+import parse from 'html-react-parser';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
@@ -30,7 +31,7 @@ export default function ListGrammar () {
                     <div className='oneWord'>
                         <>
                         <p className="ListedShortWord ">{user.question}</p>
-                        <p className="ListedShortWord ">{user.text_data}</p>
+                        <p className="ListedShortWord ">{parse(user.text_data)}</p>
                         </>
                         
                     </div>
