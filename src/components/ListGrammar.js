@@ -30,8 +30,8 @@ export default function ListGrammar () {
             
                     <div className='oneWord'>
                         <>
-                        <div className="ListedShortWord ">{user.question}</div>
-                        <div className="ListedShortWord ">{parse(user.text_data)}</div>
+                        <div className="ListedQuestion ">{user.question}</div>
+                        <div className="ListedText ">{parse(user.text_data)}</div>
                         </>
                         
                     </div>

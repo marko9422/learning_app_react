@@ -1,14 +1,7 @@
-/* .oneWord{
-    text-align: center;
-} */
-/* .ListedShortWord{
-    display: inline-block;
-    margin: 10px;
-    border: 1px solid green;
-    width: 200px;
-    padding: 30px;
+.ListedText{
+    background-color: rgb(209, 213, 216);
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
-.hiddenWord{
-    background-color: rgb(31, 88, 137);
-    text-indent: -9999px;
-} */
