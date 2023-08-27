@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React from 'react';
-import './ListWords.css';
 import {useState } from 'react';
-
-// bootstrap import
+import './ListWords.css';
+// bootstrap imports
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
+// FontAwesome imports
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleCheck,faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function ListWords() {
     const [users, setUsers] = useState([]) 
@@ -21,7 +22,6 @@ export default function ListWords() {
           // console.log(response.data);
           // console.log(hidenLanguage);
           // console.log(numberOfListedWords);
-
       })
     }
 
@@ -38,9 +38,24 @@ export default function ListWords() {
 
     })
   }
-
     const randomUsers = users.sort(() => Math.random() - 0.5).slice(0, numberOfListedWords);
     
+    // Wrong Correct handlers. 
+    function correct(id, e) {
+      e.preventDefault();
+      axios.post("http://localhost/learning_app_react_php/correct_word.php", { id: id })
+        .then(function(response) {
+          console.log(response.data);
+        })
+    }
+    function wrong(id, e) {
+      e.preventDefault();
+      axios.post("http://localhost/learning_app_react_php/wrong_word.php", { id: id })
+        .then(function(response) {
+          console.log(response.data);
+        })
+    }
+
   return (
     <div>
       
@@ -66,14 +81,16 @@ export default function ListWords() {
 
       <Button variant="primary" onClick={listAll}>List all</Button>
 
-        {randomUsers.map((user) =>{  
-        return  <div id={user.id} className='' key={user.id}>
-        
+        {randomUsers.map((user) =>{ 
+          
+          return  <div id={user.id} className='' key={user.id}>
                   <div className='oneWord'>
                     {hidenLanguage === 'English' ? (
                       <>
                       <p onClick={unhideWord} className="ListedShortWord ">{user.german}</p>
-                      <p onClick={unhideWord} className="ListedShortWord hiddenWord">{user.english}</p>  
+                      <p onClick={unhideWord} className="ListedShortWord hiddenWord">{user.english}</p> 
+                      <FontAwesomeIcon icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
+                      <FontAwesomeIcon icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
                       </>
                     ) : (
                       <>

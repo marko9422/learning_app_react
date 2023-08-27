@@ -1,7 +1,18 @@
-.ListedText{
-    background-color: rgb(209, 213, 216);
-    border: 2px solid black;
-    border-radius: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
+.oneWord{
+    text-align: center;
+}
+.ListedShortWord{
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid green;
+    width: 200px;
+    padding: 30px;
+}
+.hiddenWord{
+    background-color: rgb(31, 88, 137);
+    text-indent: -9999px;
+}
+/* fawicons */
+.svg-inline--fa .fa-circle-check {
+    color: rgb(12, 233, 30);
 }
