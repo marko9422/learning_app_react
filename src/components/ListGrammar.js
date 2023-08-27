@@ -7,6 +7,10 @@ import parse from 'html-react-parser';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
+// FontAwesome imports
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleCheck,faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+
 export default function ListGrammar () {
 
     const [grammar, setGrammar] = useState([]) 
@@ -17,6 +21,22 @@ export default function ListGrammar () {
         setGrammar(response.data)
   
       })
+    }
+
+    // Wrong Correct handlers. 
+    function correct(id, e) {
+      e.preventDefault();
+      axios.post("http://localhost/learning_app_react_php/correct_word_long.php", { id: id })
+        .then(function(response) {
+          console.log(response.data);
+        })
+    }
+    function wrong(id, e) {
+      e.preventDefault();
+      axios.post("http://localhost/learning_app_react_php/wrong_word_long.php", { id: id })
+        .then(function(response) {
+          console.log(response.data);
+        })
     }
 
   return (
@@ -32,6 +52,8 @@ export default function ListGrammar () {
                         <>
                         <div className="ListedQuestion ">{user.question}</div>
                         <div className="ListedText ">{parse(user.text_data)}</div>
+                        <FontAwesomeIcon icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
                         </>
                         
                     </div>
