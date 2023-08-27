@@ -35,7 +35,6 @@ export default function ListWords() {
       await axios.get('http://localhost/learning_app_react_php/').then(function(response){
         setUsers(response.data)
         setNumberOfListedWords(30000000)
-
     })
   }
     const randomUsers = users.sort(() => Math.random() - 0.5).slice(0, numberOfListedWords);
