@@ -6,6 +6,7 @@ import ShortTextForm from './components/ShortTextForm'
 import LongTextForm from './components/LongTextForm'
 import ListWords from './components/ListWords'
 import ListGrammar from './components/ListGrammar';
+import ListMistakes from './components/ListMistakes';
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -26,6 +27,7 @@ function App() {
           <Nav.Link as={Link} to='/ListGrammar'>List Grammar</Nav.Link>
           <Nav.Link as={Link} to='/ShortTextForm'>Eng/Ger Words</Nav.Link>
           <Nav.Link as={Link} to='/LongTextForm'>Eng/Ger Text</Nav.Link>
+          <Nav.Link as={Link} to='/ListMistakes'>List Mistakes</Nav.Link>
         </Nav>
       </Container>
     </Navbar>
@@ -36,6 +38,7 @@ function App() {
         <Route path='/ListGrammar' element={< ListGrammar/>} />
         <Route path='/ShortTextForm' element={< ShortTextForm/>} />
         <Route path='/LongTextForm' element={< LongTextForm/>} />
+        <Route path='/ListMistakes' element={< ListMistakes/>} />
     </Routes>
     </BrowserRouter>
   </>  
