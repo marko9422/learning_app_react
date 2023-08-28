@@ -17,10 +17,9 @@ import { faCircleCheck,faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
 export default function ListMistakes() {
 
-    const [numberOfListedWords, setNumberOfListedWords] = useState(3)
+    const [numberOfListedWords, setNumberOfListedWords] = useState(3000000)
     const [mistakes_words, setMistakes_words] = useState([])
     const [mistakes_grammar, setMistakes_grammar] = useState([])
-
     // Get data from database.
     async function list_words(e){
         e.preventDefault()
@@ -79,7 +78,7 @@ export default function ListMistakes() {
         type="text" 
         autoComplete="off"/>
 
-    { sorted_words.slice(0, 5).map((word) => {
+    { sorted_words.slice(0, numberOfListedWords).map((word) => {
         return <div 
         className='oneWord'>
             <p onClick={unhideWord} className="ListedShortWord ">{word.german}</p>
@@ -89,7 +88,7 @@ export default function ListMistakes() {
         </div>
 
     })}
-    { sorted_grammar.slice(0, 5).map((grammar) => {
+    { sorted_grammar.slice(0, numberOfListedWords).map((grammar) => {
         return <div  
         id={grammar.id} className='oneGrammar' key={grammar.id}>
           <div className="ListedQuestion ">{grammar.question}</div>

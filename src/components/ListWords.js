@@ -37,7 +37,8 @@ export default function ListWords() {
         setNumberOfListedWords(30000000)
     })
   }
-    const randomUsers = users.sort(() => Math.random() - 0.5).slice(0, numberOfListedWords);
+  // Get r
+    const randomWords = users.sort(() => Math.random() - 0.5).slice(0, numberOfListedWords);
     
     // Wrong Correct handlers. 
     function correct(id, e) {
@@ -80,7 +81,7 @@ export default function ListWords() {
 
       <Button variant="primary" onClick={listAll}>List all</Button>
 
-        {randomUsers.map((user) =>{ 
+        {randomWords.map((user) =>{ 
           
           return  <div id={user.id} className='' key={user.id}>
                   <div className='oneWord'>

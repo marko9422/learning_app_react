@@ -6,6 +6,7 @@ import parse from 'html-react-parser';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 // FontAwesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,6 +15,7 @@ import { faCircleCheck,faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 export default function ListGrammar () {
 
     const [grammar, setGrammar] = useState([]) 
+    const [numberOfListedWords, setNumberOfListedWords] = useState(grammar.length)
 
     async function get_list_data(e){
         e.preventDefault()
@@ -22,6 +24,10 @@ export default function ListGrammar () {
   
       })
     }
+
+    // Random grammar.
+    const randomGrammar = grammar.sort(() => Math.random() - 0.5).slice(0, numberOfListedWords);
+
 
     // Wrong Correct handlers. 
     function correct(id, e) {
@@ -47,10 +53,14 @@ export default function ListGrammar () {
 
   return (
     <div>
-
+        <Form.Control 
+              placeholder='Number of listed words.'
+              onChange={(e) => setNumberOfListedWords(e.target.value)}
+              type="text" 
+              autoComplete="off"/>
         <Button onClick={get_list_data} variant="primary" type="submit">Submit</Button>
 
-        {grammar.map((user) =>{  
+        {randomGrammar.map((user) =>{  
             return  <div  
             id={user.id} className='oneGrammar' key={user.id}>
               <div className="ListedQuestion ">{user.question}</div>
