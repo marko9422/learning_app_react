@@ -16,12 +16,19 @@
 }
 /*  */
 /*  Grammar */
+.oneGrammar{
+    text-align: center;
+}
 .ListedText{
     background-color: rgb(209, 213, 216);
     border: 2px solid black;
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 20px;
+}
+.hiddenGrammar {
+    background-color: rgb(31, 88, 137);
+    text-indent: -9999px;
 }
 /*  */
 /* fawicons */

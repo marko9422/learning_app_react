@@ -39,26 +39,25 @@ export default function ListGrammar () {
         })
     }
 
+    // Handle unhide correct ansfer.
+    function unhideGrammar(event) {
+      const clickedElement = event.currentTarget;
+      clickedElement.classList.remove("hiddenGrammar");
+    }
+
   return (
     <div>
 
         <Button onClick={get_list_data} variant="primary" type="submit">Submit</Button>
 
-
         {grammar.map((user) =>{  
-            return  <div id={user.id} className='' key={user.id}>
-            
-                    <div className='oneWord'>
-                        <>
-                        <div className="ListedQuestion ">{user.question}</div>
-                        <div className="ListedText ">{parse(user.text_data)}</div>
-                        <FontAwesomeIcon icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
-                        <FontAwesomeIcon icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
-                        </>
-                        
-                    </div>
-
-                    </div>}
+            return  <div  
+            id={user.id} className='oneGrammar' key={user.id}>
+              <div className="ListedQuestion ">{user.question}</div>
+              <FontAwesomeIcon icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
+              <FontAwesomeIcon icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
+              <div onClick={unhideGrammar} className="ListedText hiddenGrammar">{parse(user.text_data)}</div>
+            </div>}
             )}
     </div>
 
