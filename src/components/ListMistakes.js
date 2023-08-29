@@ -84,6 +84,17 @@ export default function ListMistakes() {
         })
     }
 
+    // OnClick disable click again.
+    function handle_clicked(e){
+        e.preventDefault();
+        const icon  = e.target;
+        const grandParentDiv = icon.closest('.correct_wrong_wrap');
+    
+        if (grandParentDiv) {
+            grandParentDiv.classList.add('correct_wrong_clicked');
+        }
+        }
+
   return (<>
 
     <Button variant="primary" onClick={list_words}>List Words</Button>
@@ -99,8 +110,18 @@ export default function ListMistakes() {
         className='oneWord'>
             <p onClick={unhideWord} className="ListedShortWord ">{word.german}</p>
             <p onClick={unhideWord} className="ListedShortWord hiddenWord">{word.english}</p> 
-            <FontAwesomeIcon className='fontAwesome correct' icon={faCircleCheck} onClick={(e) => correct(word.id, e)} />
-            <FontAwesomeIcon className='fontAwesome wrong' icon={faCircleXmark} onClick={(e) => wrong(word.id, e)} />
+            <div className='correct_wrong_wrap'>
+                <FontAwesomeIcon 
+                className='fontAwesome correct' 
+                icon={faCircleCheck} 
+                onClick={(e) => {correct(word.id, e);
+                    handle_clicked(e)}} />
+                <FontAwesomeIcon 
+                className='fontAwesome wrong' 
+                icon={faCircleXmark} 
+                onClick={(e) => {wrong(word.id, e);
+                    handle_clicked(e)}} />
+            </div>
         </div>
 
     })}
@@ -108,8 +129,18 @@ export default function ListMistakes() {
         return <div  
         id={grammar.id} className='oneGrammar' key={grammar.id}>
           <div className="ListedQuestion ">{grammar.question}</div>
-          <FontAwesomeIcon className='fontAwesome correct' icon={faCircleCheck} onClick={(e) => correct_grammar(grammar.id, e)} />
-          <FontAwesomeIcon className='fontAwesome wrong' icon={faCircleXmark} onClick={(e) => wrong_grammar(grammar.id, e)} />
+          <div className='correct_wrong_wrap'>
+            <FontAwesomeIcon 
+            className='fontAwesome correct' 
+            icon={faCircleCheck} 
+            onClick={(e) => {correct_grammar(grammar.id, e);
+                handle_clicked(e)}} />
+            <FontAwesomeIcon 
+            className='fontAwesome wrong' 
+            icon={faCircleXmark} 
+            onClick={(e) => {wrong_grammar(grammar.id, e);
+                handle_clicked(e)}} />
+        </div>
           <div onClick={unhideGrammar} className="ListedText hiddenGrammar">{parse(grammar.text_data)}</div>
         </div>
 

@@ -117,6 +117,18 @@ export default function ListWords() {
                       <>
                       <p onClick={unhideWord} className="ListedShortWord ">{user.english}</p>
                       <p onClick={unhideWord} className="ListedShortWord hiddenWord">{user.german}</p>
+                      <div className='correct_wrong_wrap'>
+                      <FontAwesomeIcon 
+                        className='fontAwesome correct' 
+                        icon={faCircleCheck} 
+                        onClick={(e) => {correct(user.id, e);
+                          handle_clicked(e)}} />
+                      <FontAwesomeIcon 
+                        className='fontAwesome wrong' 
+                        icon={faCircleXmark} 
+                        onClick={(e) => {wrong(user.id, e);
+                          handle_clicked(e)}} />
+                      </div>
                       </>
                     )}
                   </div>

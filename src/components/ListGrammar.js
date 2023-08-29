@@ -50,6 +50,16 @@ export default function ListGrammar () {
       const clickedElement = event.currentTarget;
       clickedElement.classList.remove("hiddenGrammar");
     }
+     // OnClick disable click again.
+     function handle_clicked(e){
+      e.preventDefault();
+      const icon  = e.target;
+      const grandParentDiv = icon.closest('.correct_wrong_wrap');
+
+      if (grandParentDiv) {
+        grandParentDiv.classList.add('correct_wrong_clicked');
+      }
+    }
 
   return (
     <div>
@@ -64,8 +74,18 @@ export default function ListGrammar () {
             return  <div  
             id={user.id} className='oneGrammar' key={user.id}>
               <div className="ListedQuestion ">{user.question}</div>
-              <FontAwesomeIcon className='fontAwesome correct' icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
-              <FontAwesomeIcon className='fontAwesome wrong' icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
+              <div className='correct_wrong_wrap'>
+                <FontAwesomeIcon 
+                  className='fontAwesome correct' 
+                  icon={faCircleCheck} 
+                  onClick={(e) => {correct(user.id, e);
+                    handle_clicked(e)}} />
+                <FontAwesomeIcon 
+                  className='fontAwesome wrong' 
+                  icon={faCircleXmark} 
+                  onClick={(e) => {wrong(user.id, e);
+                    handle_clicked(e)}} />
+              </div>
               <div onClick={unhideGrammar} className="ListedText hiddenGrammar">{parse(user.text_data)}</div>
             </div>}
             )}
