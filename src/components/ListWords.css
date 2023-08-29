@@ -13,6 +13,10 @@
 }
 /*  */
 /* Font awesome style */
+.correct_wrong_clicked{
+    pointer-events: none;
+    opacity: 0.3;
+}
 .fontAwesome{
     font-size: 30px;
     margin: 3px;
