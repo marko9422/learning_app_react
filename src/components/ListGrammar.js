@@ -64,8 +64,8 @@ export default function ListGrammar () {
             return  <div  
             id={user.id} className='oneGrammar' key={user.id}>
               <div className="ListedQuestion ">{user.question}</div>
-              <FontAwesomeIcon icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
-              <FontAwesomeIcon icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
+              <FontAwesomeIcon className='fontAwesome correct' icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
+              <FontAwesomeIcon className='fontAwesome wrong' icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
               <div onClick={unhideGrammar} className="ListedText hiddenGrammar">{parse(user.text_data)}</div>
             </div>}
             )}

@@ -12,3 +12,22 @@
     background-color: rgb(31, 88, 137);
     text-indent: -9999px;
 }
+/*  */
+/* Font awesome style */
+.fontAwesome{
+    font-size: 30px;
+    margin: 3px;
+    cursor: pointer;
+}
+.wrong{
+    color: rgba(225, 75, 75, 0.909);
+}
+.wrong:hover{
+    color: rgb(235, 0, 0);
+}
+.correct{
+    color: green;
+}
+.correct:hover{
+    color: rgb(7, 223, 7);
+}

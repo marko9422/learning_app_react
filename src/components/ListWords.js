@@ -89,8 +89,8 @@ export default function ListWords() {
                       <>
                       <p onClick={unhideWord} className="ListedShortWord ">{user.german}</p>
                       <p onClick={unhideWord} className="ListedShortWord hiddenWord">{user.english}</p> 
-                      <FontAwesomeIcon icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
-                      <FontAwesomeIcon icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
+                      <FontAwesomeIcon className='fontAwesome correct' icon={faCircleCheck} onClick={(e) => correct(user.id, e)} />
+                      <FontAwesomeIcon className='fontAwesome wrong' icon={faCircleXmark} onClick={(e) => wrong(user.id, e)} />
                       </>
                     ) : (
                       <>

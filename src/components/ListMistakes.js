@@ -53,6 +53,7 @@ export default function ListMistakes() {
       }
 
     // Wrong Correct handlers. The same functions is in the ListWord component.
+    // handle words.
     function correct(id, e) {
         e.preventDefault();
         axios.post("http://localhost/learning_app_react_php/correct_word.php", { id: id })
@@ -60,13 +61,28 @@ export default function ListMistakes() {
             console.log(response.data);
             })
         }
-        function wrong(id, e) {
+    function wrong(id, e) {
+    e.preventDefault();
+    axios.post("http://localhost/learning_app_react_php/wrong_word.php", { id: id })
+        .then(function(response) {
+        console.log(response.data);
+        })
+    }
+    // Handle grammar.
+    function correct_grammar(id, e) {
         e.preventDefault();
-        axios.post("http://localhost/learning_app_react_php/wrong_word.php", { id: id })
+        axios.post("http://localhost/learning_app_react_php/correct_word_long.php", { id: id })
             .then(function(response) {
             console.log(response.data);
             })
         }
+    function wrong_grammar(id, e) {
+    e.preventDefault();
+    axios.post("http://localhost/learning_app_react_php/wrong_word_long.php", { id: id })
+        .then(function(response) {
+        console.log(response.data);
+        })
+    }
 
   return (<>
 
@@ -83,8 +99,8 @@ export default function ListMistakes() {
         className='oneWord'>
             <p onClick={unhideWord} className="ListedShortWord ">{word.german}</p>
             <p onClick={unhideWord} className="ListedShortWord hiddenWord">{word.english}</p> 
-            <FontAwesomeIcon icon={faCircleCheck} onClick={(e) => correct(word.id, e)} />
-            <FontAwesomeIcon icon={faCircleXmark} onClick={(e) => wrong(word.id, e)} />
+            <FontAwesomeIcon className='fontAwesome correct' icon={faCircleCheck} onClick={(e) => correct(word.id, e)} />
+            <FontAwesomeIcon className='fontAwesome wrong' icon={faCircleXmark} onClick={(e) => wrong(word.id, e)} />
         </div>
 
     })}
@@ -92,8 +108,8 @@ export default function ListMistakes() {
         return <div  
         id={grammar.id} className='oneGrammar' key={grammar.id}>
           <div className="ListedQuestion ">{grammar.question}</div>
-          <FontAwesomeIcon icon={faCircleCheck} onClick={(e) => correct(grammar.id, e)} />
-          <FontAwesomeIcon icon={faCircleXmark} onClick={(e) => wrong(grammar.id, e)} />
+          <FontAwesomeIcon className='fontAwesome correct' icon={faCircleCheck} onClick={(e) => correct_grammar(grammar.id, e)} />
+          <FontAwesomeIcon className='fontAwesome wrong' icon={faCircleXmark} onClick={(e) => wrong_grammar(grammar.id, e)} />
           <div onClick={unhideGrammar} className="ListedText hiddenGrammar">{parse(grammar.text_data)}</div>
         </div>
 
