@@ -19,9 +19,18 @@ export default function ShortTextForm() {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
+    // FILL THE TEXT ALLERT IF IS IMPUT EMPTY.
+    if (!inputs.englishShortText || !inputs.germanShortText) {
+      alert('Please fill in the text.');
+      return;
+    }
+    // POST DATA INTO PHP URL.
     axios.post("http://localhost/learning_app_react_php/", inputs).then(function(response){
         console.log(response.data)
+
+        setInputs({});
     });
+    
   }
 
   return (
@@ -32,13 +41,13 @@ export default function ShortTextForm() {
 
       <Form onSubmit={handleSubmit} >
           <Form.Group className="mb-3"  >
-              <Form.Control placeholder='GERMAN' onChange={handleChange} type="text" name='germanShortText' autoComplete="off"/>
-          </Form.Group>
-
-          <Form.Group className="mb-3"  >
-              <Form.Control placeholder='ENGLISH' onChange={handleChange} type="text" name='englishShortText' autoComplete="off"/>
+              <Form.Control value={inputs.englishShortText || ''} placeholder='ENGLISH' onChange={handleChange} type="text" name='englishShortText' autoComplete="off"/>
           </Form.Group>
               
+          <Form.Group className="mb-3"  >
+              <Form.Control value={inputs.germanShortText || ''} placeholder='GERMAN' onChange={handleChange} type="text" name='germanShortText' autoComplete="off"/>
+          </Form.Group>
+
           <Button variant="primary" type="submit">Submit</Button>
       </Form> 
 
