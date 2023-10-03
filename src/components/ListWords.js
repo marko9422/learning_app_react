@@ -40,22 +40,36 @@ export default function ListWords() {
   // Get r
     const randomWords = users.sort(() => Math.random() - 0.5).slice(0, numberOfListedWords);
     
-    // Wrong Correct handlers. 
-    function correct(id, e) {
+    // WRONG CORRECT HANDLERS. 
+    function correct_english(id, e) {
       e.preventDefault();
-      axios.post("http://localhost/learning_app_react_php/correct_word.php", { id: id })
+      axios.post("http://localhost/learning_app_react_php/correct_english_word.php", { id: id })
         .then(function(response) {
           console.log(response.data);
         })
     }
-    function wrong(id, e) {
+    function wrong_english(id, e) {
       e.preventDefault();
-      axios.post("http://localhost/learning_app_react_php/wrong_word.php", { id: id })
+      axios.post("http://localhost/learning_app_react_php/wrong_english_word.php", { id: id })
         .then(function(response) {
           console.log(response.data);
         })
     }
-    // OnClick disable click again.
+    function correct_german(id, e) {
+      e.preventDefault();
+      axios.post("http://localhost/learning_app_react_php/correct_german_word.php", { id: id })
+        .then(function(response) {
+          console.log(response.data);
+        })
+    }
+    function wrong_german(id, e) {
+      e.preventDefault();
+      axios.post("http://localhost/learning_app_react_php/wrong_german_word.php", { id: id })
+        .then(function(response) {
+          console.log(response.data);
+        })
+    }
+    // OnClick DISABLE CLICK AGAIN..
     function handle_clicked(e){
       e.preventDefault();
       const icon  = e.target;
@@ -104,12 +118,12 @@ export default function ListWords() {
                       <FontAwesomeIcon 
                         className='fontAwesome correct' 
                         icon={faCircleCheck} 
-                        onClick={(e) => {correct(user.id, e);
+                        onClick={(e) => {correct_english(user.id, e);
                           handle_clicked(e)}} />
                       <FontAwesomeIcon 
                         className='fontAwesome wrong' 
                         icon={faCircleXmark} 
-                        onClick={(e) => {wrong(user.id, e);
+                        onClick={(e) => {wrong_english(user.id, e);
                           handle_clicked(e)}} />
                       </div>
                       </>
@@ -121,12 +135,12 @@ export default function ListWords() {
                       <FontAwesomeIcon 
                         className='fontAwesome correct' 
                         icon={faCircleCheck} 
-                        onClick={(e) => {correct(user.id, e);
+                        onClick={(e) => {correct_german(user.id, e);
                           handle_clicked(e)}} />
                       <FontAwesomeIcon 
                         className='fontAwesome wrong' 
                         icon={faCircleXmark} 
-                        onClick={(e) => {wrong(user.id, e);
+                        onClick={(e) => {wrong_german(user.id, e);
                           handle_clicked(e)}} />
                       </div>
                       </>
