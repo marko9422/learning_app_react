@@ -20,12 +20,16 @@ export default function ListMistakes() {
     const [numberOfListedWords, setNumberOfListedWords] = useState(3000000)
     const [mistakes_words, setMistakes_words] = useState([])
     const [mistakes_grammar, setMistakes_grammar] = useState([])
+    
     // Get data from database.
     async function list_words(e){
         e.preventDefault()
         await axios.get('http://localhost/learning_app_react_php/list_mistakes_words.php').then(function(response){
             setMistakes_words(response.data)
             setMistakes_grammar([])
+            // console.log(response.data[1]['english_score'])
+
+            
       })
     }
     async function list_grammar(e){
@@ -36,8 +40,9 @@ export default function ListMistakes() {
         })
         
     }
+
     // Sort by score.
-    const sorted_words = mistakes_words.sort((a, b) => a.score - b.score)
+    const sorted_words = mistakes_words.sort((a, b) => a.english_score - b.english_score)
     const sorted_grammar = mistakes_grammar.sort((a, b) => a.score - b.score)
 
     // On click unhide word. The same functions is in the ListWord component.
@@ -96,8 +101,9 @@ export default function ListMistakes() {
         }
 
   return (<>
+    <Button variant="primary" onClick={list_words}>Lisaat Words</Button>
 
-    <Button variant="primary" onClick={list_words}>List Words</Button>
+    {/* <Button variant="primary" onClick={list_words}>List Words</Button> */}
     <Button variant="primary" onClick={list_grammar}>List Grammar</Button>
     <Form.Control 
         placeholder='Numbers.'
@@ -109,7 +115,7 @@ export default function ListMistakes() {
         return <div 
         className='oneWord'>
             <p onClick={unhideWord} className="ListedShortWord ">{word.german}</p>
-            <p onClick={unhideWord} className="ListedShortWord hiddenWord">{word.english}</p> 
+            <p onClick={unhideWord} className="ListedShortWord hiddenWord">{word.english}</p>
             <div className='correct_wrong_wrap'>
                 <FontAwesomeIcon 
                 className='fontAwesome correct' 
@@ -145,7 +151,6 @@ export default function ListMistakes() {
         </div>
 
     })}
-
     </>
   )
 }
