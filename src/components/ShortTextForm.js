@@ -12,19 +12,20 @@ export default function ShortTextForm() {
   const [inputs, setInputs] = useState({})
   const [categoryInputs, setCategoryInputs] = useState({})
   const [categories,setCategories] = useState([])
-  // const [categoryInput, setCategoryInput] = useState('')
+  
   
   // GET ALL DATA FROM SQL DATABASE.
   const AllCategoriesSet = new Set();
   
     useEffect(() => {
       getData()
-    }, );
+    }, []);
 
   const getData = async () => {
     await axios.get('http://localhost/learning_app_react_php/get_all_categories.php').then(function(response){
       response.data.map((one) => {
         AllCategoriesSet.add(one['categoryValue']);
+        console.log(one['checked'])
       });
       const SetToArray = Array.from(AllCategoriesSet);
       setCategories(SetToArray)
@@ -63,12 +64,12 @@ export default function ShortTextForm() {
     axios.post("http://localhost/learning_app_react_php/get_all_categories.php", categoryInputs).then(function(response){
         console.log(response.data)
         setCategoryInputs({});
-    });
+        getData()
+      });
     
   }
 
   
-
   return (
     
     <div className='form'>
@@ -88,14 +89,12 @@ export default function ShortTextForm() {
           {categories.map((oneCategory) => (
              <Form.Check 
                 inline
-                type={'radio'}
+                type={'checkbox'}
                 id={oneCategory}
                 label={oneCategory}
-                // onChange={handleCategoryChange}
                 // defaultChecked={true}
                 name="category"
                 key={oneCategory}
-                // value={categoryInput}
            />
            ))}
 
