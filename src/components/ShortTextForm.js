@@ -10,8 +10,9 @@ import Form from 'react-bootstrap/Form';
 export default function ShortTextForm() {
 
   const [inputs, setInputs] = useState({})
+  const [categoryInputs, setCategoryInputs] = useState({})
   const [categories,setCategories] = useState([])
-  const [categoryInput, setCategoryInput] = useState('')
+  // const [categoryInput, setCategoryInput] = useState('')
   
   // GET ALL DATA FROM SQL DATABASE.
   const AllCategoriesSet = new Set();
@@ -21,9 +22,9 @@ export default function ShortTextForm() {
     }, []);
 
   const getData = async () => {
-    await axios.get('http://localhost/learning_app_react_php/').then(function(response){
+    await axios.get('http://localhost/learning_app_react_php/get_all_categories.php').then(function(response){
       response.data.map((one) => {
-        AllCategoriesSet.add(one['categoryInput']);
+        AllCategoriesSet.add(one['categoryValue']);
       });
       const SetToArray = Array.from(AllCategoriesSet);
       setCategories(SetToArray)
@@ -31,13 +32,16 @@ export default function ShortTextForm() {
 }  
 
 
-
-
-
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setInputs(values => ({...values, [name]:value }))
+}
+
+  const handleCategoryChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setCategoryInputs(values => ({...values, [name]:value }))
 }
 
   const handleSubmit = (e) =>{
@@ -54,16 +58,16 @@ export default function ShortTextForm() {
     });
     
   }
+  const handleCategorSubmit = (e) =>{
+    e.preventDefault();
+    axios.post("http://localhost/learning_app_react_php/get_all_categories.php", categoryInputs).then(function(response){
+        console.log(response.data)
+        setCategoryInputs({});
+    });
+    
+  }
 
-  // ADD CATEGORY INTO.
-
-  // const addCategory = () => {
-  //   // setOfCaterories.add(categoryInput);
-  //   setCategoryInput('');
-  // }
-  // const handleCategoryChange = (e) => {
-  //   setCategoryInput(e.target.value); 
-  // }
+  
 
   return (
     
@@ -91,18 +95,21 @@ export default function ShortTextForm() {
                 // defaultChecked={true}
                 name="category"
                 key={oneCategory}
-                value={categoryInput}
+                // value={categoryInput}
            />
            ))}
-          <Form.Group className="mb-3">
-              <Form.Control value={inputs.categoryInput || ''} placeholder='NEW CATEGORY' onChange={handleChange} type="text" name='categoryInput' autoComplete="off"/>
-          </Form.Group>
 
           <Button variant="primary" type="submit">Submit</Button>
 
       </Form> 
 
+      <Form onSubmit={handleCategorSubmit} > 
+          <Form.Group className="mb-3">
+              <Form.Control value={categoryInputs.categoryValue || ''} placeholder='NEW CATEGORY' onChange={handleCategoryChange} type="text" name='categoryValue' autoComplete="off"/>
+          </Form.Group>
 
+          <Button variant="secondary" type="submit">Add new category</Button>
+      </Form> 
       
 
     </div>
