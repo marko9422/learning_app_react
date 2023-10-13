@@ -19,7 +19,7 @@ export default function ShortTextForm() {
   
     useEffect(() => {
       getData()
-    }, []);
+    }, );
 
   const getData = async () => {
     await axios.get('http://localhost/learning_app_react_php/get_all_categories.php').then(function(response){
