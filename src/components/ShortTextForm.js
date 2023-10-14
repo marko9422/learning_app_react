@@ -92,6 +92,7 @@ export default function ShortTextForm() {
                 defaultChecked={oneCategory['checked'] === 1 ? true : false}
                 name="category"
                 key={oneCategory['categoryValue']}
+                value={oneCategory['categoryValue']}
               />
            ))}
 
