@@ -54,7 +54,7 @@ export default function ShortTextForm() {
   }
   const handleCategorSubmit = (e) =>{
     e.preventDefault();
-    if (!inputs.categoryValue) {
+    if (!categoryInputs.categoryValue) {
       alert('Please fill in CATEGORY text.');
       return;
     }
