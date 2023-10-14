@@ -11,11 +11,10 @@ export default function ShortTextForm() {
 
   const [inputs, setInputs] = useState({})
   const [categoryInputs, setCategoryInputs] = useState({})
-  const [categories,setCategories] = useState([])
+  const [categoriesData,setCategoriesData] = useState([])
   
   
   // GET ALL DATA FROM SQL DATABASE.
-  const AllCategoriesSet = new Set();
   
     useEffect(() => {
       getData()
@@ -23,15 +22,9 @@ export default function ShortTextForm() {
 
   const getData = async () => {
     await axios.get('http://localhost/learning_app_react_php/get_all_categories.php').then(function(response){
-      response.data.map((one) => {
-        AllCategoriesSet.add(one['categoryValue']);
-        console.log(one['checked'])
-      });
-      const SetToArray = Array.from(AllCategoriesSet);
-      setCategories(SetToArray)
+      setCategoriesData(response.data)
   })
 }  
-
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -61,10 +54,14 @@ export default function ShortTextForm() {
   }
   const handleCategorSubmit = (e) =>{
     e.preventDefault();
+    if (!inputs.categoryValue) {
+      alert('Please fill in CATEGORY text.');
+      return;
+    }
     axios.post("http://localhost/learning_app_react_php/get_all_categories.php", categoryInputs).then(function(response){
         console.log(response.data)
         setCategoryInputs({});
-        getData()
+        getData(); 
       });
     
   }
@@ -86,16 +83,16 @@ export default function ShortTextForm() {
           </Form.Group>
 
 
-          {categories.map((oneCategory) => (
+          {categoriesData.map((oneCategory) => (
              <Form.Check 
                 inline
-                type={'checkbox'}
-                id={oneCategory}
-                label={oneCategory}
-                // defaultChecked={true}
+                type={'radio'}
+                id={oneCategory['categoryValue']}
+                label={oneCategory['categoryValue']}
+                defaultChecked={oneCategory['checked'] === 1 ? true : false}
                 name="category"
-                key={oneCategory}
-           />
+                key={oneCategory['categoryValue']}
+              />
            ))}
 
           <Button variant="primary" type="submit">Submit</Button>
