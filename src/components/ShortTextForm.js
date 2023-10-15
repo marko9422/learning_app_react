@@ -12,6 +12,8 @@ export default function ShortTextForm() {
   const [inputs, setInputs] = useState({})
   const [categoryInputs, setCategoryInputs] = useState({})
   const [categoriesData,setCategoriesData] = useState([])
+  // SELECTED CATEGORY BEFORE POST DATA INTO SQL.
+  // const [selectedCategory, setSelectedCategory] = useState('');
   
   
   // GET ALL DATA FROM SQL DATABASE.
@@ -66,7 +68,14 @@ export default function ShortTextForm() {
     
   }
 
+  const handleRadioChange = (value) => {
+    setInputs({
+      ...inputs,
+      radio: value,
+    });
+  }
 
+  
   return (
     
     <div className='form'>
@@ -84,17 +93,18 @@ export default function ShortTextForm() {
 
 
           {categoriesData.map((oneCategory) => (
-             <Form.Check 
-                inline
-                type={'radio'}
-                id={oneCategory['categoryValue']}
-                label={oneCategory['categoryValue']}
-                defaultChecked={oneCategory['checked'] === 1 ? true : false}
-                name="category"
-                key={oneCategory['categoryValue']}
-                value={oneCategory['categoryValue']}
-              />
-           ))}
+            <Form.Check
+              inline
+              type={'radio'}
+              id={oneCategory['categoryValue']}
+              label={oneCategory['categoryValue']}
+              checked={inputs.radio === oneCategory['categoryValue']}
+              onChange={() => handleRadioChange(oneCategory['categoryValue'])}
+              name="category"
+              key={oneCategory['categoryValue']}
+              value={oneCategory['categoryValue']}
+            />
+      ))}
 
           <Button variant="primary" type="submit">Submit</Button>
 
