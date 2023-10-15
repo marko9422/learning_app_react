@@ -9,11 +9,21 @@ import Form from 'react-bootstrap/Form';
 
 export default function ShortTextForm() {
 
-  const [inputs, setInputs] = useState({})
   const [categoryInputs, setCategoryInputs] = useState({})
   const [categoriesData,setCategoriesData] = useState([])
-  // SELECTED CATEGORY BEFORE POST DATA INTO SQL.
-  // const [selectedCategory, setSelectedCategory] = useState('');
+  const [inputs, setInputs] = useState({ 
+    radio: categoriesData.lastIndexOf,
+  });
+
+  // ON LOAD WEB ,SET DEFAULT RADIO VALUE AS LAST ADDED CATEGORY.
+  useEffect(() => {
+    if (categoriesData.length > 0) {
+      setInputs((prevInputs) => ({
+        ...prevInputs,
+        radio: categoriesData[categoriesData.length - 1].categoryValue,
+      }));
+    }
+  }, [categoriesData]);
   
   
   // GET ALL DATA FROM SQL DATABASE.
@@ -98,7 +108,9 @@ export default function ShortTextForm() {
               type={'radio'}
               id={oneCategory['categoryValue']}
               label={oneCategory['categoryValue']}
-              checked={inputs.radio === oneCategory['categoryValue']}
+              checked={
+                inputs.radio === oneCategory['categoryValue']
+              }
               onChange={() => handleRadioChange(oneCategory['categoryValue'])}
               name="category"
               key={oneCategory['categoryValue']}
