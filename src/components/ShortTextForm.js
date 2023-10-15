@@ -50,8 +50,8 @@ export default function ShortTextForm() {
         console.log(response.data)
         setInputs({});
     });
-    
   }
+
   const handleCategorSubmit = (e) =>{
     e.preventDefault();
     if (!categoryInputs.categoryValue) {
@@ -66,7 +66,7 @@ export default function ShortTextForm() {
     
   }
 
-  
+
   return (
     
     <div className='form'>
