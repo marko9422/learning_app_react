@@ -3,16 +3,13 @@ import React from 'react';
 import {useState } from 'react';
 import './ListWords.css';
 
-// Components imports.
-import DoNotShowAgainButton from './DoNotShowAgainButton';
-
 // bootstrap imports
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 // FontAwesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck,faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck,faCircleXmark,faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export default function ListWords() {
     const [users, setUsers] = useState([]) 
@@ -23,9 +20,6 @@ export default function ListWords() {
         e.preventDefault()
       await axios.get('http://localhost/learning_app_react_php/').then(function(response){
           setUsers(response.data)
-          // console.log(response.data);
-          // console.log(hidenLanguage);
-          // console.log(numberOfListedWords);
       })
     }
 
@@ -73,7 +67,7 @@ export default function ListWords() {
           console.log(response.data);
         })
     }
-    // OnClick DISABLE CLICK AGAIN..
+    // OnClick DISABLE CLICK AGAIN.
     function handle_clicked(e){
       e.preventDefault();
       const icon  = e.target;
@@ -83,6 +77,26 @@ export default function ListWords() {
         grandParentDiv.classList.add('correct_wrong_clicked');
       }
     }
+    // OnClick DISABLE CLICK AGAIN.
+    function handle_clicked_showAgain(e){
+      e.preventDefault();
+      const icon  = e.target;
+      const grandParentDiv = icon.closest('.eye-slash-icon');
+
+      if (grandParentDiv) {
+        grandParentDiv.classList.add('correct_wrong_clicked');
+      }
+    }
+
+    function doNotShowAgain(id, e) {
+      e.preventDefault();
+      axios.post("http://localhost/learning_app_react_php/doNotShowAgainButton.php", { id: id })
+        .then(function(response) {
+          console.log(response.data);
+        })
+    }
+
+
   return (
     <div>
       
@@ -129,7 +143,10 @@ export default function ListWords() {
                         icon={faCircleXmark} 
                         onClick={(e) => {wrong_english(user.id, e);
                           handle_clicked(e)}} />
-                       <DoNotShowAgainButton/>
+                       <FontAwesomeIcon 
+                        icon={faEyeSlash}
+                        className='eye-slash-icon' 
+                        onClick={(e) => {handle_clicked_showAgain(e);doNotShowAgain(user.id,e)}}/>
                       </div>
                       </>
                     ) : (
@@ -147,7 +164,10 @@ export default function ListWords() {
                         icon={faCircleXmark} 
                         onClick={(e) => {wrong_german(user.id, e);
                           handle_clicked(e)}} />
-                       <DoNotShowAgainButton/>
+                         <FontAwesomeIcon 
+                        icon={faEyeSlash}
+                        className='eye-slash-icon' 
+                        onClick={(e) => {handle_clicked_showAgain(e);doNotShowAgain(user.id,e)}}/>
                       </div>
                       </>
                     )}
