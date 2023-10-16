@@ -3,7 +3,9 @@ import axios from 'axios';
 import {useState } from 'react';
 import './ListMistakes.css'
 
-// bootstrap imports
+
+
+// bootstrap imports.
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';

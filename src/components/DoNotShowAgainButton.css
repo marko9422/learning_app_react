@@ -1,0 +1,14 @@
+.correct_wrong_clicked{
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.eye-slash-icon{
+    font-size: 30px;
+    margin: 3px;
+    cursor: pointer;
+    color: rgb(255, 179, 1);
+}
+.eye-slash-icon:hover{
+    color: rgb(255, 128, 1);
+}

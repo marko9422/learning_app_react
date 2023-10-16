@@ -2,6 +2,10 @@ import axios from 'axios';
 import React from 'react';
 import {useState } from 'react';
 import './ListWords.css';
+
+// Components imports.
+import DoNotShowAgainButton from './DoNotShowAgainButton';
+
 // bootstrap imports
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
@@ -125,6 +129,7 @@ export default function ListWords() {
                         icon={faCircleXmark} 
                         onClick={(e) => {wrong_english(user.id, e);
                           handle_clicked(e)}} />
+                       <DoNotShowAgainButton/>
                       </div>
                       </>
                     ) : (
@@ -142,6 +147,7 @@ export default function ListWords() {
                         icon={faCircleXmark} 
                         onClick={(e) => {wrong_german(user.id, e);
                           handle_clicked(e)}} />
+                       <DoNotShowAgainButton/>
                       </div>
                       </>
                     )}
