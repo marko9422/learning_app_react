@@ -17,7 +17,7 @@ export default function ListMistakes() {
 
     const [numberOfListedWords, setNumberOfListedWords] = useState(3000000)
     const [mistakes_words, setMistakes_words] = useState([])
-    const [mistakes_grammar, setMistakes_grammar] = useState([])
+    // const [mistakes_grammar, setMistakes_grammar] = useState([])
     const [hidenLanguage, setHiddenLanguage] = useState('English')
 
     
@@ -26,13 +26,13 @@ export default function ListMistakes() {
         e.preventDefault()
         await axios.get('http://localhost/learning_app_react_php/list_mistakes_words.php').then(function(response){
             setMistakes_words(response.data)
-            setMistakes_grammar([])
+            // setMistakes_grammar([])
       })
     }
     async function list_grammar(e){
         e.preventDefault()
         await axios.get('http://localhost/learning_app_react_php/list_mistakes_grammar.php').then(function(response){
-            setMistakes_grammar(response.data)
+            // setMistakes_grammar(response.data)
             setMistakes_words([])
         })
     }
