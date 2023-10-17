@@ -124,9 +124,9 @@ export default function ListWords() {
 
 
         {randomWords.map((user) =>{ 
-          
-          
-          return  <div id={user.id} className='' key={user.id}>
+          if (user.visible == 0){
+
+            return  <div id={user.id} className='' key={user.id}>
                   <div className='oneWord'>
                     {hidenLanguage === 'English' ? (
                       <>
@@ -173,7 +173,9 @@ export default function ListWords() {
                     )}
                   </div>
 
-                </div>}
+                </div>
+                }
+              }
         )}
 
 
