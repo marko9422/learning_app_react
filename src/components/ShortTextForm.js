@@ -26,7 +26,7 @@ export default function ShortTextForm() {
   }, [categoriesData]);
   
   
-  // GET ALL DATA FROM SQL DATABASE.
+  // GET ALL CATEGORIES DATA FROM SQL DATABASE.
   
     useEffect(() => {
       getData()

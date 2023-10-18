@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import {useState } from 'react';
+import {useState,useEffect } from 'react';
 import './ListWords.css';
 
 // bootstrap imports
@@ -15,6 +15,8 @@ export default function ListWords() {
     const [users, setUsers] = useState([]) 
     const [hidenLanguage, setHiddenLanguage] = useState('English')
     const [numberOfListedWords, setNumberOfListedWords] = useState(users.length)
+    const [categoriesData,setCategoriesData] = useState([])
+    const [choosedCategory, setChoosedCategory] = useState({radio:'general'});
 
     async function getUsers(e){
         e.preventDefault()
@@ -95,6 +97,30 @@ export default function ListWords() {
           console.log(response.data);
         })
     }
+    // ON LOAD WEB ,SET DEFAULT RADIO VALUE AS LAST ADDED CATEGORY.
+    useEffect(() => {
+      if (choosedCategory.length > 0) {
+        setChoosedCategory({ratio:'general'})
+      };}
+  , [choosedCategory]);
+
+    // GET ALL CATEGORIES DATA FROM SQL DATABASE.
+    useEffect(() => {
+      getData()
+    }, []);
+  
+    const getData = async () => {
+      await axios.get('http://localhost/learning_app_react_php/get_all_categories.php').then(function(response){
+        setCategoriesData(response.data)
+    })
+  }  
+
+  const handleRadioChange = (value) => {
+    setChoosedCategory({
+      ...choosedCategory,
+      radio: value,
+    });
+  }
 
 
   return (
@@ -122,9 +148,41 @@ export default function ListWords() {
 
       <Button variant="primary" onClick={listAll}>List all</Button>
 
+      
+      {categoriesData.map((oneCategory) => (
+            <Form.Check
+              inline
+              type={'radio'}
+              id={oneCategory['categoryValue']}
+              label={oneCategory['categoryValue']}
+              checked={
+                choosedCategory.radio === oneCategory['categoryValue']
+              }
+              onChange={() => handleRadioChange(oneCategory['categoryValue'])}
+              name="category"
+              key={oneCategory['categoryValue']}
+              value={oneCategory['categoryValue']}
+            />
+        ))
+        }
+        <Form.Check
+              inline
+              type={'radio'}
+              id={'all categories'}
+              label={'all categories'}
+              onChange={() => handleRadioChange('general')}
+              checked={
+                choosedCategory.radio === 'general'
+              }
+              name="category"
+              key={'genenral'}
+              value={'genenral'}
+            />
 
         {randomWords.map((user) =>{ 
-          if (user.visible == 0){
+          if (user.visible === 0 && user.categoryInput === choosedCategory.radio) 
+          
+          {
 
             return  <div id={user.id} className='' key={user.id}>
                   <div className='oneWord'>
@@ -174,10 +232,62 @@ export default function ListWords() {
                   </div>
 
                 </div>
-                }
+
+        } else if (user.visible === 0 && choosedCategory.radio === 'general'){
+
+          return  <div id={user.id} className='' key={user.id}>
+
+          <div className='oneWord'>
+            {hidenLanguage === 'English' ? (
+              <>
+              <p onClick={unhideWord} className="ListedShortWord ">{user.german}</p>
+              <p onClick={unhideWord} className="ListedShortWord hiddenWord">{user.english}</p> 
+              <div className='correct_wrong_wrap'>
+              <FontAwesomeIcon 
+                className='fontAwesome correct' 
+                icon={faCircleCheck} 
+                onClick={(e) => {correct_english(user.id, e);
+                  handle_clicked(e)}} />
+              <FontAwesomeIcon 
+                className='fontAwesome wrong' 
+                icon={faCircleXmark} 
+                onClick={(e) => {wrong_english(user.id, e);
+                  handle_clicked(e)}} />
+               <FontAwesomeIcon 
+                icon={faEyeSlash}
+                className='eye-slash-icon' 
+                onClick={(e) => {handle_clicked_showAgain(e);doNotShowAgain(user.id,e)}}/>
+              </div>
+              </>
+            ) : (
+              <>
+              <p onClick={unhideWord} className="ListedShortWord ">{user.english}</p>
+              <p onClick={unhideWord} className="ListedShortWord hiddenWord">{user.german}</p>
+              <div className='correct_wrong_wrap'>
+              <FontAwesomeIcon 
+                className='fontAwesome correct' 
+                icon={faCircleCheck} 
+                onClick={(e) => {correct_german(user.id, e);
+                  handle_clicked(e)}} />
+              <FontAwesomeIcon 
+                className='fontAwesome wrong' 
+                icon={faCircleXmark} 
+                onClick={(e) => {wrong_german(user.id, e);
+                  handle_clicked(e)}} />
+                 <FontAwesomeIcon 
+                icon={faEyeSlash}
+                className='eye-slash-icon' 
+                onClick={(e) => {handle_clicked_showAgain(e);doNotShowAgain(user.id,e)}}/>
+              </div>
+              </>
+            )}
+          </div>
+
+        </div>
+
+        }
               }
         )}
-
 
 
 
