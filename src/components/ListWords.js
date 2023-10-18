@@ -17,6 +17,7 @@ export default function ListWords() {
     const [numberOfListedWords, setNumberOfListedWords] = useState(users.length)
     const [categoriesData,setCategoriesData] = useState([])
     const [choosedCategory, setChoosedCategory] = useState({radio:'general'});
+    let count = 0;
 
     async function getUsers(e){
         e.preventDefault()
@@ -38,7 +39,7 @@ export default function ListWords() {
     })
   }
   // Get r
-    const randomWords = users.sort(() => Math.random() - 0.5).slice(0, numberOfListedWords);
+    const randomWords = users.sort(() => Math.random() - 0.5)
     
     // WRONG CORRECT HANDLERS. 
     function correct_english(id, e) {
@@ -124,6 +125,7 @@ export default function ListWords() {
   }
 
 
+
   return (
     <div>
       
@@ -180,9 +182,10 @@ export default function ListWords() {
               value={'genenral'}
             />
 
-        {randomWords.map((user) =>{ 
-          if (user.visible === 0 && (user.categoryInput === choosedCategory.radio || choosedCategory.radio === 'general')) {
 
+        {randomWords.map((user) =>{ 
+          if (count < numberOfListedWords && user.visible === 0 && (user.categoryInput === choosedCategory.radio || choosedCategory.radio === 'general')) {
+            count++
             return  <div id={user.id} className='' key={user.id}>
                   <div className='oneWord'>
                     {hidenLanguage === 'English' ? (
