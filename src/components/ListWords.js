@@ -115,6 +115,7 @@ export default function ListWords() {
     })
   }  
 
+
   const handleRadioChange = (value) => {
     setChoosedCategory({
       ...choosedCategory,
@@ -180,9 +181,7 @@ export default function ListWords() {
             />
 
         {randomWords.map((user) =>{ 
-          if (user.visible === 0 && user.categoryInput === choosedCategory.radio) 
-          
-          {
+          if (user.visible === 0 && (user.categoryInput === choosedCategory.radio || choosedCategory.radio === 'general')) {
 
             return  <div id={user.id} className='' key={user.id}>
                   <div className='oneWord'>
@@ -232,60 +231,7 @@ export default function ListWords() {
                   </div>
 
                 </div>
-
-        } else if (user.visible === 0 && choosedCategory.radio === 'general'){
-
-          return  <div id={user.id} className='' key={user.id}>
-
-          <div className='oneWord'>
-            {hidenLanguage === 'English' ? (
-              <>
-              <p onClick={unhideWord} className="ListedShortWord ">{user.german}</p>
-              <p onClick={unhideWord} className="ListedShortWord hiddenWord">{user.english}</p> 
-              <div className='correct_wrong_wrap'>
-              <FontAwesomeIcon 
-                className='fontAwesome correct' 
-                icon={faCircleCheck} 
-                onClick={(e) => {correct_english(user.id, e);
-                  handle_clicked(e)}} />
-              <FontAwesomeIcon 
-                className='fontAwesome wrong' 
-                icon={faCircleXmark} 
-                onClick={(e) => {wrong_english(user.id, e);
-                  handle_clicked(e)}} />
-               <FontAwesomeIcon 
-                icon={faEyeSlash}
-                className='eye-slash-icon' 
-                onClick={(e) => {handle_clicked_showAgain(e);doNotShowAgain(user.id,e)}}/>
-              </div>
-              </>
-            ) : (
-              <>
-              <p onClick={unhideWord} className="ListedShortWord ">{user.english}</p>
-              <p onClick={unhideWord} className="ListedShortWord hiddenWord">{user.german}</p>
-              <div className='correct_wrong_wrap'>
-              <FontAwesomeIcon 
-                className='fontAwesome correct' 
-                icon={faCircleCheck} 
-                onClick={(e) => {correct_german(user.id, e);
-                  handle_clicked(e)}} />
-              <FontAwesomeIcon 
-                className='fontAwesome wrong' 
-                icon={faCircleXmark} 
-                onClick={(e) => {wrong_german(user.id, e);
-                  handle_clicked(e)}} />
-                 <FontAwesomeIcon 
-                icon={faEyeSlash}
-                className='eye-slash-icon' 
-                onClick={(e) => {handle_clicked_showAgain(e);doNotShowAgain(user.id,e)}}/>
-              </div>
-              </>
-            )}
-          </div>
-
-        </div>
-
-        }
+                }
               }
         )}
 
