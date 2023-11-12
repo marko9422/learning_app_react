@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 
 // FontAwesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck,faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck,faCircleXmark,faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export default function ListGrammar () {
 
@@ -34,14 +34,14 @@ export default function ListGrammar () {
       e.preventDefault();
       axios.post("http://localhost/learning_app_react_php/correct_word_long.php", { id: id })
         .then(function(response) {
-          console.log(response.data);
+          // console.log(response.data);
         })
     }
     function wrong(id, e) {
       e.preventDefault();
       axios.post("http://localhost/learning_app_react_php/wrong_word_long.php", { id: id })
         .then(function(response) {
-          console.log(response.data);
+          // console.log(response.data);
         })
     }
 
@@ -60,6 +60,24 @@ export default function ListGrammar () {
         grandParentDiv.classList.add('correct_wrong_clicked');
       }
     }
+    // OnClick DISABLE CLICK AGAIN.
+    function handle_clicked_showAgain(e){
+      e.preventDefault();
+      const icon  = e.target;
+      const grandParentDiv = icon.closest('.eye-slash-icon');
+
+      if (grandParentDiv) {
+        grandParentDiv.classList.add('correct_wrong_clicked');
+      }
+    }
+    // IN SQL VISIBLE COLUMN WILL BE 1 NOT VISIBLE INSTEAD OF 0 VISIBLE.
+    function doNotShowAgain(id, e) {
+      e.preventDefault();
+      axios.post("http://localhost/learning_app_react_php/doNotShowAgainButton_grammar.php", { id: id })
+        .then(function(response) {
+          console.log(response.data);
+        })
+    }
 
   return (
     <div>
@@ -71,6 +89,7 @@ export default function ListGrammar () {
         <Button onClick={get_list_data} variant="primary" type="submit">Submit</Button>
 
         {randomGrammar.map((user) =>{  
+          if (user.visible === 0 ){
             return  <div  
             id={user.id} className='oneGrammar' key={user.id}>
               <div className="ListedQuestion ">{user.question}</div>
@@ -85,9 +104,15 @@ export default function ListGrammar () {
                   icon={faCircleXmark} 
                   onClick={(e) => {wrong(user.id, e);
                     handle_clicked(e)}} />
+                 <FontAwesomeIcon 
+                        icon={faEyeSlash}
+                        className='eye-slash-icon' 
+                        onClick={(e) => {handle_clicked_showAgain(e);doNotShowAgain(user.id,e)}}/>
               </div>
               <div onClick={unhideGrammar} className="ListedText hiddenGrammar">{parse(user.text_data)}</div>
-            </div>}
+            </div>
+          }
+            }
             )}
     </div>
 

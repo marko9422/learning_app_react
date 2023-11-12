@@ -93,7 +93,7 @@ export default function ListWords() {
 
     function doNotShowAgain(id, e) {
       e.preventDefault();
-      axios.post("http://localhost/learning_app_react_php/doNotShowAgainButton.php", { id: id })
+      axios.post("http://localhost/learning_app_react_php/doNotShowAgainButton_words.php", { id: id })
         .then(function(response) {
           console.log(response.data);
         })
